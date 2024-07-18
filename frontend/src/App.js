@@ -25,18 +25,18 @@ function App() {
     }
   };
 
-  const handleDownload = async (format, info) => {
+  const handleDownload = async (info) => {
     try {
       const response = await axios.post(
         "http://localhost:8000/api/download/",
-        { url, format },
+        { url },
         { responseType: "blob" }
       );
       const blob = new Blob([response.data]);
       const downloadUrl = window.URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = downloadUrl;
-      link.download = `${info.title}.${format}`;
+      link.download = `${info.title}.mp4`;
       document.body.appendChild(link);
       link.click();
       link.remove();
@@ -70,7 +70,7 @@ function App() {
           <img src={videoInfo.thumbnail} alt="Video thumbnail" />
           <p>{videoInfo.description}</p>
           <div className="download-buttons">
-            <button onClick={() => handleDownload("mp4", videoInfo)}>
+            <button onClick={() => handleDownload(videoInfo)}>
               Download Video (MP4)
             </button>
           </div>

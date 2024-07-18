@@ -59,8 +59,9 @@ def download_video(request):
         os.makedirs(download_path, exist_ok=True)
 
         ydl_opts = {
-            'format': 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best',
+            'format': 'mp4',
             'outtmpl': os.path.join(download_path, '%(title)s.%(ext)s'),
+            # 'ffmpeg_location': '/opt/homebrew/bin/ffmpeg',
         }
 
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
